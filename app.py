@@ -46,7 +46,7 @@ def on_message(client, userdata, message):
         .replace('\n', '')
 
     uri = f"http://{DOMOTICZ_HOST}:{DOMOTICZ_PORT}/json.htm?type=command&param=udevice&idx={POWER_IDX}&nvalue=0&" \
-          f"svalue={kwh_high};{kwh_low};{kwh_return_high};{kwh_return_low};{kwh_current};{kwh_return_current}"
+          f"svalue={kwh_low};{kwh_high};{kwh_return_low};{kwh_return_high};{kwh_current};{kwh_return_current}"
     request = urllib.request.Request(uri)
     request.add_header("Authorization", "Basic %s" % authorization_header)
     urllib.request.urlopen(request)
