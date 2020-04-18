@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+import signal
 import sys
 import urllib
 
@@ -56,5 +57,13 @@ def on_message(client, userdata, message):
     request.add_header("Authorization", "Basic %s" % authorization_header)
     urllib.request.urlopen(request)
 
-print("connecting to MQTT on {}:{}".format(MQTT_HOST, MQTT_PORT))
-subscribe.callback(on_message, MQTT_TOPIC, hostname=MQTT_HOST, port=MQTT_PORT)
+
+def signal_handler():
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    signal.signal(signal.SIGTERM, signal_handler)
+
+    print("connecting to MQTT on {}:{}".format(MQTT_HOST, MQTT_PORT))
+    subscribe.callback(on_message, MQTT_TOPIC, hostname=MQTT_HOST, port=MQTT_PORT)
