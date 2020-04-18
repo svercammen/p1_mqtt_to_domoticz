@@ -46,14 +46,12 @@ def on_message(client, userdata, message):
 
     uri = f"http://{DOMOTICZ_HOST}:{DOMOTICZ_PORT}/json.htm?type=command&param=udevice&idx={POWER_IDX}&nvalue=0&" \
           f"svalue={kwh_high};{kwh_low};{kwh_return_high};{kwh_return_low};{kwh_current};{kwh_return_current}"
-    print(uri)
     request = urllib.request.Request(uri)
     request.add_header("Authorization", "Basic %s" % authorization_header)
     urllib.request.urlopen(request)
 
     gas = payload['gas'] * 1000
     uri = f"http://{DOMOTICZ_HOST}:{DOMOTICZ_PORT}/json.htm?type=command&param=udevice&idx={GAS_IDX}&nvalue=0&svalue={gas}"
-    print(uri)
     request = urllib.request.Request(uri)
     request.add_header("Authorization", "Basic %s" % authorization_header)
     urllib.request.urlopen(request)
